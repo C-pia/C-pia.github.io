@@ -2,10 +2,19 @@
 <head>
 <title>C-pia! Magazine</title>
 <meta name="google-site-verification" content="tHCxux-oMzUgL7cbYIVzbJysSUsZURz119pMewO4Z8I" />
+
+    <script type="text/javascript">
+        window.onload = function() {
+            if (window.location.hash === "#article_01") {
+                parent.frames['main'].location.href = "data/MaedaJun.html";
+            }
+        }
+    </script>
 </head>
 <frameset rows="100,*" frameborder="NO" border="0">
   <frame name="header" src="header.html" noresize scrolling="NO">
   <frame name="main" src="main.html" noresize>
+  
   <noframes>
   <body>
   <p>This page relies on frames. Please use a supported browser.</p>

@@ -1,12 +1,9 @@
 <html lang="en"><head>
 <link rel="stylesheet" type="text/css" href="data/style.css">
-<link rel="stylesheet" type="text/css" href="data/banner-styles.css">
-<link rel="stylesheet" type="text/css" href="data/iconochive.css">
 
 <title>C-pia! Magazine</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="stylesheet" href="data/do.css" type="text/css">
 <style>
     .centered-table {
         position: absolute;
@@ -14,6 +11,67 @@
         left: 50%;
         transform: translate(-50%, -50%);
     }
+    
+    .image-container {
+        position: relative;
+        width: 1280px;
+        height: 100px;
+    }
+    .background-image {
+        width: 100%;
+        height: auto;
+    }
+    .button-container { 
+        position: absolute; 
+        cursor: pointer; 
+    }
+    .button {
+        position: absolute;
+        cursor: pointer;
+        transition: opacity 0.3s;
+        opacity: 0;
+    }
+    .button:hover {
+        opacity: 1;
+    }
+    .hover-text { 
+        position: relative; 
+        top: 0; 
+        left: 28; 
+        width: 100%; 
+        text-align: center; 
+        opacity: 0; 
+        background-color: rgba(0, 0, 0, 0.5);
+        transition: opacity 0.3s; 
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    }
+    .button-container:hover .hover-text { 
+        opacity: 1; 
+    }
+    #button1 {
+        top: 27px;
+        left: 9px;
+    }
+    #button2 {
+        top: 2px;
+        left: 47px;
+    }
+    #button3 {
+        top: 18px;
+        left: 71px;
+    }
+    #button4 {
+        top: 44px;
+        left: 82px;
+    }
+    #button5 {
+        top: 71px;
+        left: 78px;
+    }
+
 </style>
 
 </head>
@@ -22,10 +80,28 @@
 <table class="centered-table" border="0" cellspacing="0" cellpadding="0" width="200" bgcolor="#ffeef7">
   <tbody>
     <tr>
-      <td align="center"><a href="https://c-pia.github.io/" target="_parent"><img src="data/top.jpg" border="0"></td></a>
-    </tr>
-    <tr>
-      <!--<embed width="180" height="40" autostart="false" loop="false" src="data/Dearest Customer.mp3"><br>-->
+    <div class="image-container">
+        <img src="data/top.jpg" alt="Background" class="background-image">
+        <div class="button-container" id="button1" onclick="parent.redirectTo('main.html')">
+            <img src="data/top_button1.jpg" alt="Home" class="button">
+        </div>
+        <div class="button-container" id="button2" onclick="parent.redirectTo('pch.html')">
+            <img src="data/top_button2.jpg" alt="Patches" class="button">
+            <span class="hover-text">Patches</span>
+        </div>
+        <div class="button-container" id="button3" onclick="parent.redirectTo('info.html')">
+            <img src="data/top_button3.jpg" alt="Info" class="button">
+            <span class="hover-text">Info</span>
+        </div>
+        <div class="button-container" id="button4" onclick="parent.redirectTo('art.html')">
+            <img src="data/top_button4.jpg" alt="Artwork" class="button">
+            <span class="hover-text">Artwork</span>
+        </div>
+        <div class="button-container" id="button5" onclick="parent.redirectTo('contact.html')">
+            <img src="data/top_button5.jpg" alt="Contact" class="button">
+            <span class="hover-text">Contact</span>
+        </div>
+    </div>
     </tr>
   </tbody>
 </table>

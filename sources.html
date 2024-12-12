@@ -1,20 +1,36 @@
 
 <html lang="en"><head>
 <link rel="stylesheet" type="text/css" href="data/style.css">
-<link rel="stylesheet" type="text/css" href="data/banner-styles.css">
-<link rel="stylesheet" type="text/css" href="data/iconochive.css">
 
 <title>C-pia! Magazine</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta http-equiv="Content-Style-Type" content="text/css">
-<link rel="stylesheet" href="data/do.css" type="text/css">
-
 <style> .hidden-text { display: none; background-color: black; color: white; padding: 10px; margin-top: 10px; } 
 
-        .styled-button { background-color: #5c847b; /* Green */ color: white; text-align: center; text-decoration: none; display: inline-block; font-size: 8px; cursor: pointer; } 
+        .styled-button { background-color: #5c847b; color: white; text-align: center; text-decoration: none; display: inline-block; font-size: 8px; cursor: pointer; } 
         
-        .styled-button:hover { background-color: #45a049; /* Darker green */ } 
+        .styled-button:hover { background-color: #45a049;} 
 </style>
+    <script>
+        function showText(id, buttonId) {
+            var textElement = document.getElementById(id);
+            var buttonElement = document.getElementById(buttonId);
+            if (textElement.style.display === "none" || textElement.style.display === "") {
+                textElement.style.display = "block";
+                buttonElement.textContent = "🞂"; 
+            } else {
+                textElement.style.display = "none";
+                buttonElement.textContent = "🞃";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var hiddenElements = document.querySelectorAll('.hidden-text');
+            hiddenElements.forEach(function(element) {
+                element.style.display = 'none';
+            });
+        });
+    </script>
 
 </head>
 <body background="data/tile.png" bgcolor="#FFDEEE" text="#445566">
@@ -71,7 +87,6 @@
             　　★Dungeon Travelers: To Heart 2 in Another World - <a href="https://store.steampowered.com/app/1901620/Dungeon_Travelers_To_Heart_2_in_Another_World/" target="_blank">https://store.steampowered.com/app/1901620/Dungeon_Travelers_To_Heart_2_in_Another_World/</a><br>
             　　★Doukyuusei 2 Remake - <a href="https://www.fanzagames-digination.com/fgremake/doukyusei2_re/" target="_blank">https://www.fanzagames-digination.com/fgremake/doukyusei2_re//</a><br>
 </p>
-
 <p id="03"> 
         <h2 class="name3">《Volume 3》</h2>
         <span style="color: red;">★</span>News - <br>
@@ -96,7 +111,6 @@
         <span style="color: red;">★</span>Sotsugyou Shashin article sources - <a href="https://cherish-media.jp/posts/4501" target="_blank">https://cherish-media.jp/posts/4501</a><br>
                 　　& <a href="https://ameblo.jp/kurishita-zenko/entry-12664301403.html" target="_blank">https://ameblo.jp/kurishita-zenko/entry-12664301403.html</a><br>
 </p>
-
 <p id="04"> 
         <h2 class="name3">《Volume 4》</h2>
         <span style="color: red;">★</span>News - <br>
@@ -107,7 +121,6 @@
             　　★Vay Steam page - <a href="https://store.steampowered.com/app/2926110/Vay/" target="_blank">https://store.steampowered.com/app/2926110/Vay/</a><br>
             　　★Doukyuusei 2 Remake and Yakin Byoutou Remake to get overseas releases? - <a href="https://www.bugbug.news/b_game/161559/" target="_blank">https://www.bugbug.news/b_game/161559/</a><br>
 </p>
-
 <p id="05"> 
         <h2 class="name3">《Volume 5》</h2>
         <span style="color: red;">★</span>News - <br>
@@ -130,23 +143,40 @@
         <br>
         <span style="color: red;">★</span>Parfait Windows 10+ compatibility guide - <a href="https://web.archive.org/web/20210614111435/https://ameblo.jp/yu-xpe5995/entry-12472220339.html" target="_blank">https://web.archive.org/web/20210614111435/https://ameblo.jp/yu-xpe5995/entry-12472220339.html</a><br> 
 </p>
-<!--
 <p id="06"> 
         <h2 class="name3">《Volume 6》</h2>
         <span style="color: red;">★</span>News - <br>
-            　　★Kanon on Switch update - <a href="https://x.com/PROTOTYPE_info/status/1797644645469650968" target="_blank">https://x.com/PROTOTYPE_info/status/1797644645469650968</a><br>
-            　　★Boku no Watashi release - <a href="https://www.vector.co.jp/soft/winnt/game/se526749.html" target="_blank">https://www.vector.co.jp/soft/winnt/game/se526749.html</a><br>
-            　　★ToHeart Remake announced - <a href="https://www.youtube.com/watch?v=EvtEU5E8kqE&t=2308s" target="_blank">https://www.youtube.com/watch?v=EvtEU5E8kqE&t=2308s</a><br>
-            　　★Alice no Yakata PC98 English Translation - <a href="https://gbatemp.net/download/pc-98-alices-cottage-english-patch.38656/" target="_blank">https://gbatemp.net/download/pc-98-alices-cottage-english-patch.38656/</a><br>
-            　　★Madou Monogatari 3 PC98 English Translation - <a href="https://x.com/YuviApp/status/1797790335294119962" target="_blank">https://x.com/YuviApp/status/1797790335294119962</a><br> & <a href="https://github.com/Eight-Mansions/MadouMonogatari3-pc98" target="_blank">https://github.com/Eight-Mansions/MadouMonogatari3-pc98</a><br>
-            　　★Tenshi no Inai 12-gatsu English Translation - <a href="https://mercurialtapestry.net/2024/06/14/december-when-there-is-no-angel-translation-release/" target="_blank">https://mercurialtapestry.net/2024/06/14/december-when-there-is-no-angel-translation-release/</a><br>
-            　　★Bomberman Jetters English Translation - <a href="https://x.com/Rifexd/status/1815201978710147300" target="_blank">https://x.com/Rifexd/status/1815201978710147300</a><br> & <a href="https://github.com/stickteo/jetters" target="_blank">https://github.com/stickteo/jetters</a><br>
-            　　★Bounty Girls press kit - <a href="https://www.value-press.com/pressrelease/340892" target="_blank">https://www.value-press.com/pressrelease/340892</a><br>
-            　　★Slime on Steam - <a href="https://store.steampowered.com/app/3001340/_/" target="_blank">https://store.steampowered.com/app/3001340/_/</a><br>
-            　　★Ancient Roman fan translation - <a href="https://x.com/SnowyAria/status/1811214335697625379" target="_blank">https://x.com/SnowyAria/status/1811214335697625379</a><br> & <a href="https://github.com/Eight-Mansions/Ancient-Roman/" target="_blank">https://github.com/Eight-Mansions/Ancient-Roman/</a><br>
-            　　★EGG's English website - <a href="https://amusement-center.com/project/egg/console/?page=1&lang=en" target="_blank">https://amusement-center.com/project/egg/console/?page=1&lang=en</a><br>
-            　　★Popful Mail on Switch - <a href="https://www.nintendo.com/us/store/products/eggconsole-popful-mail-pc-8801mkiisr-switch/" target="_blank">https://www.nintendo.com/us/store/products/eggconsole-popful-mail-pc-8801mkiisr-switch/</a><br>
-            　　★Emio The Smiling Man announced - <a href="https://store.nintendo.co.uk/en/emio-the-smiling-man-famicom-detective-club-70010000084624" target="_blank">https://store.nintendo.co.uk/en/emio-the-smiling-man-famicom-detective-club-70010000084624</a><br>
+            　　★ToHeart Remake update - <a href="https://www.famitsu.com/article/202411/23773" target="_blank">https://www.famitsu.com/article/202411/23773</a><br>
+            　　★Da Capo Remake announced - <a href="https://circus-co.jp/dc_portal/" target="_blank">https://circus-co.jp/dc_portal/</a><br>
+                　　　　& <a href="https://x.com/circus_info/status/1855913444249370835" target="_blank">https://x.com/circus_info/status/1855913444249370835</a><br>
+            　　★Infinity series remaster - <a href="https://game.mages.co.jp/infinity/" target="_blank">https://game.mages.co.jp/infinity/</a><br>
+            　　★Kanon on Switch update - <a href="https://x.com/PROTOTYPE_info/status/1859468405738439141" target="_blank">https://x.com/PROTOTYPE_info/status/1859468405738439141</a><br>
+            　　★Kono Aozora ni Yakusoku o Remake announced - <a href="https://youtu.be/5d2qp8Uv6pg" target="_blank">https://youtu.be/5d2qp8Uv6pg</a><br>
+                　　　　& <a href="https://x.com/entergram_info/status/1826544847614001596" target="_blank">https://x.com/entergram_info/status/1826544847614001596</a><br>
+            　　★Mizuiro Remake announced - <a href="nekoneko-soft.info" target="_blank">nekoneko-soft.info</a><br>
+                　　　　& <a href="https://x.com/nekoneko_soft/status/1849029021180604501" target="_blank">https://x.com/nekoneko_soft/status/1849029021180604501</a><br>
+            　　★Tokimeki Memorial remaster announced - <a href="https://x.com/famitsu/status/1828441231728484527" target="_blank">https://x.com/famitsu/status/1828441231728484527</a><br>
+            　　★KimiNozo Another Episode Collection Steam launch - <a href="https://store.steampowered.com/app/3112140/" target="_blank">https://store.steampowered.com/app/3112140/</a><br>
+            　　★Valis comes to Steam - <a href="https://store.steampowered.com/app/3097550/" target="_blank">https://store.steampowered.com/app/3097550/</a><br>
+            　　★Angelique Nintendo Switch Online - <a href="https://www.youtube.com/watch?v=5obF4u-2qc0" target="_blank">https://www.youtube.com/watch?v=5obF4u-2qc0</a><br>
+            　　★SDF Macross on Switch & PS4 - <a href="https://famitsu.com/article/202410/22101" target="_blank">https://famitsu.com/article/202410/22101</a><br>
+            　　★Tenshi no Uta Collection - <a href="https://www.telenet-revive.com/tenshi-collection" target="_blank">https://www.telenet-revive.com/tenshi-collection</a><br>
+            　　★Tsui no Sora Remake English translation - <a href="https://x.com/PhantomZero99/status/1828297651202257255" target="_blank">https://x.com/PhantomZero99/status/1828297651202257255</a><br>
+            　　★Atelier Marie GB & Elie GB English translation - <a href="https://github.com/m-mayday/atelier-marie-gb" target="_blank">https://github.com/m-mayday/atelier-marie-gb</a><br>
+                　　　　& <a href="https://www.reddit.com/r/Atelier/comments/1exseqp/atelier_marie_gb_english_translation/" target="_blank">https://www.reddit.com/r/Atelier/comments/1exseqp/atelier_marie_gb_english_translation/</a><br>
+                　　　　& <a href="https://www.reddit.com/r/Atelier/comments/1gi4wzw/atelier_elie_gb_english_translation/" target="_blank">https://www.reddit.com/r/Atelier/comments/1gi4wzw/atelier_elie_gb_english_translation/</a><br>
+            　　★Telefang English Translation - <a href="https://wiki.telefang.net/Wikifang:Telefang_English_Translation_Patch_Finally_Complete" target="_blank">https://wiki.telefang.net/Wikifang:Telefang_English_Translation_Patch_Finally_Complete</a><br>
+            　　★Galzoo Island English Translation - <a href="https://maudcomm.neocities.org/mobile" target="_blank">https://maudcomm.neocities.org/mobile</a><br>
+            　　★Slayers PC98 English translation - <a href="https://archive.org/details/slayers-pc98-eng-patch" target="_blank">https://archive.org/details/slayers-pc98-eng-patch</a><br>
+                　　　　& <a href="https://x.com/romtranslator/status/1830347487766516205" target="_blank">https://x.com/romtranslator/status/1830347487766516205</a><br>
+            　　★Usagi na Panic English translation - <a href="https://trapsare.gay/" target="_blank">https://trapsare.gay/</a><br>
+            　　★PopoloCrois Monogatari II English translation - <a href="https://romhackplaza.org/translations/popolocrois-monogatari-ii-english-translation-playstation/" target="_blank">https://romhackplaza.org/translations/popolocrois-monogatari-ii-english-translation-playstation/</a><br>
+                　　　　& <a href="https://x.com/keke_094/status/1851651616371540357" target="_blank">https://x.com/keke_094/status/1851651616371540357</a><br>
+            　　★World Neverland coming to Steam - <a href="https://store.steampowered.com/app/3034330/EXPERIENCE_OF_FICTION_LIFE/" target="_blank">https://store.steampowered.com/app/3034330/EXPERIENCE_OF_FICTION_LIFE/</a><br>
+            　　★New Gal Guardians game reveal - <a href="https://grimguardians.com/SotD/" target="_blank">https://grimguardians.com/SotD/</a><br>
+            　　★Rosie's 'Everything for Sale!' Shop - <a href="https://novelgame.jp/games/show/10792" target="_blank">https://novelgame.jp/games/show/10792</a><br>
+            　　★Memories Off Fandisc Historia announced - <a href="https://memoriesoff.jp/" target="_blank">https://memoriesoff.jp/</a><br>
+                
             <br>
             <span style="color: red;">★</span>Sakura Mint / Tsuki no Terasu Article - <br>
                 　　⏺Twitter exchange - 
@@ -202,10 +232,6 @@
         <br>
         
 </p>
--->
-
-
-    <script> function showText(textId, buttonId) { var text = document.getElementById(textId); var button = document.getElementById(buttonId); if (text.style.display === 'none' || text.style.display === '') { text.style.display = 'block'; button.textContent = '🞁'; } else { text.style.display = 'none'; button.textContent = '🞃'; } } </script>
 
 </div>
 </td>
@@ -214,7 +240,7 @@
 
 <table border="0" cellspacing="2" cellpadding="2" width="460" bgcolor="#FFDEEE">
 <tbody>
-<a href="https://c-pia.github.io/main.html" target="_self">
+<a href="main.html" target="_self">
 <img src="data/lban_01.jpg" id="cpiabanner" alt="C-pia! Magazine">
 </a>
 </tbody>

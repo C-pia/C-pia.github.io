@@ -158,10 +158,10 @@
             select.appendChild(opt);
         }
 
-        function setVolume(volKey, spread = 1) {
+        function setVolume(volKey, spread = 0) {
             loadVolume(volKey, data.volumes[volKey]);
-            if (spread > 0) {
-                index = spread * 2 - 1;
+            if (spread >= 0) {
+                index = (spread === 0) ? 0 : spread * 2 - 1;
                 showSpread();
             }
         }
@@ -173,16 +173,16 @@
         
         if (volume && data.volumes[volume]) {
             select.value = volume;
-            setVolume(volume, spread);
+            setVolume(volume, isNaN(spread) ? 0 : spread);
         } else {
             const volumeKeys = Object.keys(data.volumes);
             const lastKey = volumeKeys[volumeKeys.length - 1];
             select.value = lastKey;
-            setVolume(lastKey, 1);
+            setVolume(lastKey, 0);
         }
 
         select.addEventListener("change", () => {
-            setVolume(select.value, 1);
+            setVolume(select.value, 0);
         });
     }
 

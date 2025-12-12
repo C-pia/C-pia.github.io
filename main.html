@@ -13,10 +13,32 @@
 
 </head>
 
+
+
+<style>
+  #banner {
+    position: relative;
+    width: 600px;
+    height: 450px;
+    overflow: hidden;
+  }
+  #banner video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 600px;
+    height: 450px;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  #banner video.active {
+    opacity: 1;
+    z-index: 1;
+  }
+</style>
+
 <body background="data/tile.png" bgcolor="#FFDEEE" text="#445566">
-
- 
-
  
 <table border="0" cellspacing="0" cellpadding="0" width="600">
 <tbody>
@@ -28,7 +50,37 @@
 <tr>
 <td background="data/td_lm.gif"><img width="1" height="1" src="data/spacer.gif"></td>
 <td bgcolor="#ffffff" align="center">
-<table width="560" border="0" cellspacing="0" cellpadding="5" background="data/Website-Banner.gif" height="348">
+<table width="400" border="0" cellspacing="0" cellpadding="5" >
+
+<div id="banner">
+  <video id="loading1" width="600" height="450" autoplay muted>
+    <source src="data/loading.mp4" type="video/mp4">
+  </video>
+  <video id="loading2" width="600" height="450" muted>
+    <source src="data/loading2.webm" type="video/mp4">
+  </video>
+</div>
+
+<script>
+  const v1 = document.getElementById('loading1');
+  const v2 = document.getElementById('loading2');
+  let current = v1;
+  let next = v2;
+  v1.classList.add('active');
+
+  function swapVideos() {
+    current.classList.remove('active');
+    next.classList.add('active');
+    next.play();
+    [current, next] = [next, current];
+    current.onended = swapVideos;
+  }
+  v1.onended = swapVideos;
+</script>
+
+
+
+
 <tbody>
 <tr>
 <td>
@@ -78,23 +130,6 @@ C-pia!'s main focus is on covering Adventure games and Simulation games released
 </td>
 </table>
 
-<!--          Updates
--->
-
-<!--          <b style="color:c16767">Notifications</b><br>
-            There may not be a volume release in March.<br>
-          </p>
--->
-<table border="0" cellspacing="0" cellpadding="4" width="460">
-<tbody>
-<h2><b style="color:fff">《Latest Updates》</b><br></h2>
-<iframe src="data/news.htm" name="newsbox" width="400" height="200">
-To view website update notes, please use a browser that supports iframes.
-</iframe>
-</tbody>
-</table>
-<br>
-
 <!--          Downloads
 -->
 
@@ -111,9 +146,11 @@ To view website update notes, please use a browser that supports iframes.
       <table border="0" cellspacing="0" cellpadding="0" width="460">
   <tbody>
     <tr>
-            <td width="150" align="center"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"><a href="https://archive.org/search?query=creator%3A%22Kyacchi22%22&amp;sort=title" target="_blank">In Browser</a></h2></td>
+            <td width="150" align="center"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"><a href="https://archive.org/search?query=creator%3A%22Kyacchi22%22&amp;sort=title" target="_blank">Archive.org</a></h2></td>
             <td width="3"></td>
-            <td width="150" align="center"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"><a href="https://drive.google.com/drive/folders/1i-0gHDCamxqBEyEULEgH4WLny1tPQFae?usp=drive_link" target="_blank">Download</a></h2></td>
+            <td width="150" align="center"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"><a href="data/pagerender.html" target="_top">In Browser</a></h2></td>
+            <td width="3"></td>
+            <td width="150" align="center"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"><a href="itch.io/c/5717641/c-pia-magazine" target="_blank">Download</a></h2></td>
     </tr>
           <tr>
       <td align="center" colspan="3"></td>
@@ -128,6 +165,24 @@ To view website update notes, please use a browser that supports iframes.
     </tr>
   </tbody>
 </table>
+
+
+<!--          Updates
+-->
+
+<!--          <b style="color:c16767">Notifications</b><br>
+            There may not be a volume release in March.<br>
+          </p>
+-->
+<table border="0" cellspacing="0" cellpadding="4" width="460">
+<tbody>
+<h2><b style="color:fff">《Latest Updates》</b><br></h2>
+<iframe src="data/news.htm" name="newsbox" width="400" height="200">
+To view website update notes, please use a browser that supports iframes.
+</iframe>
+</tbody>
+</table>
+<br>
 
 <!--          Web Articles
 -->
@@ -184,19 +239,22 @@ To view website update notes, please use a browser that supports iframes.
       <table border="0" cellspacing="0" cellpadding="0" width="460">
   <tbody>
     <tr>
-            <td width="150" align="center"><a href="sources.html#02" target="_self"><img src="data/vol02.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;">Volume 2</a></h2></td>
+            <td width="150" align="center"><a href="sources.html#02" target="_self"><img src="data/vol02.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"> Volume 2</a></h2></td>
             <td width="3"></td>
-            <td width="150" align="center"><a href="sources.html#03" target="_self"><img src="data/vol03.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;">Volume 3 </a></h2></td>
+            <td width="150" align="center"><a href="sources.html#03" target="_self"><img src="data/vol03.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"> Volume 3 </a></h2></td>
             <td width="3"></td>
-            <td width="150" align="center"><a href="sources.html#04" target="_self"><img src="data/vol04.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;">Volume 4 </a></h2></td>
+            <td width="150" align="center"><a href="sources.html#04" target="_self"><img src="data/vol04.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"> Volume 4 </a></h2></td>
     </tr>
     <tr>
-            <td width="150" align="center"><a href="sources.html#05" target="_self"><img src="data/vol05.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;">Volume 5 </a></h2></td>
+            <td width="150" align="center"><a href="sources.html#05" target="_self"><img src="data/vol05.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"> Volume 5 </a></h2></td>
             <td width="3"></td>
-            <td width="150" align="center"><a href="sources.html#06" target="_self"><img src="data/vol06.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;">Volume 6 </a></h2></td>
+            <td width="150" align="center"><a href="sources.html#06" target="_self"><img src="data/vol06.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"> Volume 6 </a></h2></td>
             <td width="3"></td>
-            <td width="150" align="center"><a href="sources.html#07" target="_self"><img src="data/vol07.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;">Volume 7 </a><img src="data/new.gif" width="47" height="21" border="0" style="position: relative;top: 3px;"></img></h2></td>
+            <td width="150" align="center"><a href="sources.html#07" target="_self"><img src="data/vol07.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"> Volume 7 </a></h2></td>
     </tr>
+   <!-- <tr>
+            <td width="150" align="center"><a href="sources.html#08" target="_self"><img src="data/vol08.jpg" width="150" height="185" border="0"><h2 style="color:5c5799;border : solid #5c847b ;border-width : 1px 0px 1px 0px ;width : 150px ;background : mintcream ;"> Volume 8 </a><img src="data/new.gif" width="47" height="21" border="0" style="position: relative;top: 3px;"></img></h2></td>
+    </tr> -->
           <tr>
       <td align="center" colspan="3"></td>
     </tr>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>C-pia Magazine</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 0px; background: #000;}
+    .spread { 
+        z-index: 1;
+        position: relative; 
+        display: flex; 
+        justify-content: center; 
+        height: 94vh;
+        gap: 0px; 
+        margin-bottom: 20px; 
+        }
+    .spread img { 
+        transition: transform 0.2s ease;
+        width: auto; 
+        height: 100%;
+        object-fit: contain;      
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2); 
+        }
+    .spine {
+        position: absolute;
+        top: 0; bottom: 0;
+        width: 50px;
+        background: linear-gradient(
+            to right,
+            rgba(0,0,0,0.08) 0%,
+            rgba(0,0,0,0.4) 50%,
+            rgba(0,0,0,0.08) 100% 
+        );
+        left: 50%;
+        transform: translateX(-50%);
+        pointer-events: none;
+        filter: blur(10px);
+        transition: transform 0.2s fade;
+        }
+    button { 
+        padding: 10px 20px; margin: 0 10px; font-size: 16px; 
+        }
+    #counter { 
+        margin-top: 10px; font-weight: bold; 
+        }
+    #topbar {
+        z-index: 2;
+        position: relative;
+        height: 34px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #151016;
+        padding-top: 4px;
+        }
+    #topbar .center {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        }
+    #volumeSelect {
+        z-index: 2;
+        background-color: #151016; 
+        color: #ffffff;
+        border: 1px solid #444;
+        border-radius: 4px;
+        padding: 6px 16px;
+        background-image: url('Bar_Cpia.png');
+        background-repeat: no-repeat;
+        background-position: left 10px center;
+        background-size: 36px 18px;
+        padding-left: 50px;
+        }
+    #controls {
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(to right, 
+            #ccc 1px, transparent 1px
+        );
+        background-size: calc((100% - 40px) / 10) 100%;
+        background-repeat: repeat-x;
+        background-position: 20px 0;
+        }
+    #controls input[type="range"] {
+        z-index: 2;
+        width: 100%;
+        }
+     
+    #zoom {
+      z-index: 2;
+      width: 300px;
+      appearance: none;
+      height: 20px;
+      border-radius: 3px;
+      background-color: transparent;
+    }   
+    #topbar-bg {
+      position: sticky;
+      z-index: 2;
+      background: #151016;
+    }   
+  </style>
+  
+</head>
+
+<body>
+    <div id="topbar-bg">
+    <div id="topbar">
+        <div class="left" style="padding-left: 12.5%;">
+            <select id="volumeSelect"></select>
+        </div>
+        <div class="center">
+            <a href="../index.html" target="_self"><img id="topper" src="top_small.jpg" alt="Return to Homepage"></a>
+        </div>
+        <div class="right"></div>
+    </div>
+    <div id="controls">
+        <input type="range" id="zoom" min=".5" max="1.5" step="0.1" value="1">
+    </div>
+    </div>
+        
+    <div id="content">
+
+    <div class="spread">
+        <img id="page1" src="" alt="Left Page">
+        <img id="page2" src="" alt="Right Page" style="display:none;">
+        <div id="spine" class="spine" style="display:none;"></div>
+    </div>
+
+<!--   <button onclick="prevSpread()">Previous</button>
+  <button onclick="nextSpread()">Next</button> -->
+  
+  <div id="counter"></div>
+
+  <script>
+    let pages = [];
+    let index = 0;
+    let leftToggle = false;
+    let rightToggle = false;
+    
+    const zoom = document.getElementById("zoom");
+    zoom.addEventListener("focus", e => {
+        e.target.blur();
+    });
+
+    //Page Display
+    async function loadManifest() {
+      const res = await fetch("manifest.json");
+      const data = await res.json();
+      const select = document.getElementById("volumeSelect");
+
+      for (const vol in data.volumes) {
+        const opt = document.createElement("option");
+        opt.value = vol;
+        opt.textContent = `Volume ${vol}`;
+        select.appendChild(opt);
+      }
+      const volumeKeys = Object.keys(data.volumes);
+      const lastKey = volumeKeys[volumeKeys.length - 1];
+      select.value = lastKey;
+      loadVolume(lastKey, data.volumes[lastKey]);
+      select.addEventListener("change", () => {
+        loadVolume(select.value, data.volumes[select.value]);
+      });
+    }
+
+    function loadVolume(folder, count) {
+      pages = [];
+      for (let i = 0; i < count; i++) {
+        pages.push(`galleries/${folder}/${String(i).padStart(2,'0')}.JPG`);
+      }
+      index = 0;
+      showSpread();
+    }
+
+    function showSpread() {
+      const img1 = document.getElementById("page1");
+      const img2 = document.getElementById("page2");
+      const spine = document.getElementById("spine");
+      const counter = document.getElementById("counter");
+
+      img1.src = pages[index];
+      clearInterval(img1._cursorInterval);
+      clearInterval(img2._cursorInterval);
+
+      if (index === 0) {
+        // Cover page
+        img2.style.display = "none";
+        spine.style.display = "none";
+        counter.textContent = "Cover page";
+
+        img1.onclick = () => nextSpread();
+        img2.onclick = null;
+
+        let toggle = false;
+        img1._cursorInterval = setInterval(() => {
+          img1.style.cursor = toggle
+            ? "url('Cursor_Cpia_3.png') 10 10, auto"
+            : "url('Cursor_Cpia_4.png') 10 10, auto";
+          toggle = !toggle;
+        }, 500);
+
+        updateHash();
+      } else {
+        // Two Page
+        img2.style.display = "block";
+        img2.src = pages[index+1] || "";
+        spine.style.display = "block";
+
+        const spreadNum = Math.ceil(index/2);
+        const totalSpreads = Math.ceil((pages.length-1)/2);
+        counter.textContent = `Spread ${spreadNum} of ${totalSpreads}`;
+
+        img1.onclick = () => prevSpread();
+        img2.onclick = () => nextSpread();
+        let leftToggle = false;
+        img1._cursorInterval = setInterval(() => {
+          img1.style.cursor = leftToggle
+            ? "url('Cursor_Cpia_1.png') 10 10, auto"
+            : "url('Cursor_Cpia_2.png') 10 10, auto";
+          leftToggle = !leftToggle;
+        }, 500);
+        let rightToggle = false;
+        img2._cursorInterval = setInterval(() => {
+          img2.style.cursor = rightToggle
+            ? "url('Cursor_Cpia_3.png') 10 10, auto"
+            : "url('Cursor_Cpia_4.png') 10 10, auto";
+          rightToggle = !rightToggle;
+        }, 500);
+
+        updateHash(spreadNum);
+      }
+    }
+
+    function nextSpread() {
+      if (index === 0) {
+        index = 1;
+      } else if (index + 2 < pages.length) {
+        index += 2;
+      }
+      resetZoom();
+      showSpread();
+    }
+
+    function prevSpread() {
+      if (index === 1) {
+        index = 0;
+      } else if (index - 2 >= 1) {
+        index -= 2;
+      }
+      resetZoom();
+      showSpread();
+    }
+    
+    document.addEventListener("keydown", e => {
+        if (e.key === "ArrowRight") nextSpread();
+        if (e.key === "ArrowLeft") prevSpread();
+    });
+
+    function updateHash(spreadNum = 0) {
+        const volume = document.getElementById("volumeSelect").value;
+        window.location.hash = `volume=${volume}&spread=${spreadNum}`;  
+    }
+    
+    function parseHash() {
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const volume = params.get("volume");
+        const spread = parseInt(params.get("spread"), 10);
+    
+        if (volume && volumes[volume]) {
+            loadVolume(volume, volumes[volume]);
+            if (spread > 0) {
+              index = spread * 2 - 1;
+              showSpread();
+            }
+        }
+    }
+    
+    const page1 = document.getElementById("page1");
+    const page2 = document.getElementById("page2");
+    
+    //Lazy zoom addition
+    const balanceTarget = 2;
+    
+    function updateZoom() {
+        const rightScale = parseFloat(zoom.value);
+        const leftScale = balanceTarget - rightScale;
+    
+        page1.style.transform = `scale(${leftScale})`;
+        page2.style.transform = `scale(${rightScale})`;
+        if (index == 0) {
+            spine.style.display = "none";
+        }   else if (leftScale === 1 && rightScale === 1) {
+            spine.style.display = "block";
+        }   else if (index !== 0) {
+            spine.style.display = "none";
+    }
+    }
+
+    zoom.addEventListener("input", updateZoom);
+
+    function resetZoom() {
+        zoom.value = 1;
+        page1.style.transform = "scale(1)";
+        page2.style.transform = "scale(1)";
+        spine.style.display = "block";
+    }
+
+
+    window.addEventListener("load", parseHash);
+        
+    loadManifest();
+    
+  </script>
+  </div>
+</body>
+</html>

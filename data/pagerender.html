@@ -148,111 +148,130 @@
 
     //Page Display
     async function loadManifest() {
-      const res = await fetch("manifest.json");
-      const data = await res.json();
-      const select = document.getElementById("volumeSelect");
+        const res = await fetch("manifest.json");
+        const data = await res.json();
+        const select = document.getElementById("volumeSelect");
+        for (const vol in data.volumes) {
+            const opt = document.createElement("option");
+            opt.value = vol;
+            opt.textContent = `Volume ${vol}`;
+            select.appendChild(opt);
+        }
 
-      for (const vol in data.volumes) {
-        const opt = document.createElement("option");
-        opt.value = vol;
-        opt.textContent = `Volume ${vol}`;
-        select.appendChild(opt);
-      }
-      const volumeKeys = Object.keys(data.volumes);
-      const lastKey = volumeKeys[volumeKeys.length - 1];
-      select.value = lastKey;
-      loadVolume(lastKey, data.volumes[lastKey]);
-      select.addEventListener("change", () => {
-        loadVolume(select.value, data.volumes[select.value]);
-      });
+        function setVolume(volKey, spread = 1) {
+            loadVolume(volKey, data.volumes[volKey]);
+            if (spread > 0) {
+                index = spread * 2 - 1;
+                showSpread();
+            }
+        }
+        
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const volume = params.get("volume");
+        const spread = parseInt(params.get("spread"), 10);
+        
+        if (volume && data.volumes[volume]) {
+            select.value = volume;
+            setVolume(volume, spread);
+        } else {
+            const volumeKeys = Object.keys(data.volumes);
+            const lastKey = volumeKeys[volumeKeys.length - 1];
+            select.value = lastKey;
+            setVolume(lastKey, 1);
+        }
+
+        select.addEventListener("change", () => {
+            setVolume(select.value, 1);
+        });
     }
 
     function loadVolume(folder, count) {
-      pages = [];
-      for (let i = 0; i < count; i++) {
-        pages.push(`galleries/${folder}/${String(i).padStart(2,'0')}.jpg`);
-      }
-      index = 0;
-      showSpread();
+        pages = [];
+        for (let i = 0; i < count; i++) {
+            pages.push(`galleries/${folder}/${String(i).padStart(2,'0')}.jpg`);
+        }
+        index = 0;
+        showSpread();
     }
 
     function showSpread() {
-      const img1 = document.getElementById("page1");
-      const img2 = document.getElementById("page2");
-      const spine = document.getElementById("spine");
-      const counter = document.getElementById("counter");
+        const img1 = document.getElementById("page1");
+        const img2 = document.getElementById("page2");
+        const spine = document.getElementById("spine");
+        const counter = document.getElementById("counter");
+        
+        img1.src = pages[index];
+        clearInterval(img1._cursorInterval);
+        clearInterval(img2._cursorInterval);
 
-      img1.src = pages[index];
-      clearInterval(img1._cursorInterval);
-      clearInterval(img2._cursorInterval);
+        if (index === 0) {
+            // Cover page
+            img2.style.display = "none";
+            spine.style.display = "none";
+            counter.textContent = "Cover page";
 
-      if (index === 0) {
-        // Cover page
-        img2.style.display = "none";
-        spine.style.display = "none";
-        counter.textContent = "Cover page";
+            img1.onclick = () => nextSpread();
+            img2.onclick = null;
 
-        img1.onclick = () => nextSpread();
-        img2.onclick = null;
+            let toggle = false;
+            img1._cursorInterval = setInterval(() => {
+              img1.style.cursor = toggle
+                ? "url('Cursor_Cpia_3.png') 10 10, auto"
+                : "url('Cursor_Cpia_4.png') 10 10, auto";
+              toggle = !toggle;
+            }, 500);
 
-        let toggle = false;
-        img1._cursorInterval = setInterval(() => {
-          img1.style.cursor = toggle
-            ? "url('Cursor_Cpia_3.png') 10 10, auto"
-            : "url('Cursor_Cpia_4.png') 10 10, auto";
-          toggle = !toggle;
-        }, 500);
+            updateHash();
+          } else {
+            // Two Page
+            img2.style.display = "block";
+            img2.src = pages[index+1] || "";
+            spine.style.display = "block";
 
-        updateHash();
-      } else {
-        // Two Page
-        img2.style.display = "block";
-        img2.src = pages[index+1] || "";
-        spine.style.display = "block";
+            const spreadNum = Math.ceil(index/2);
+            const totalSpreads = Math.ceil((pages.length-1)/2);
+            counter.textContent = `Spread ${spreadNum} of ${totalSpreads}`;
 
-        const spreadNum = Math.ceil(index/2);
-        const totalSpreads = Math.ceil((pages.length-1)/2);
-        counter.textContent = `Spread ${spreadNum} of ${totalSpreads}`;
+            img1.onclick = () => prevSpread();
+            img2.onclick = () => nextSpread();
+            let leftToggle = false;
+            img1._cursorInterval = setInterval(() => {
+              img1.style.cursor = leftToggle
+                ? "url('Cursor_Cpia_1.png') 10 10, auto"
+                : "url('Cursor_Cpia_2.png') 10 10, auto";
+              leftToggle = !leftToggle;
+            }, 500);
+            let rightToggle = false;
+            img2._cursorInterval = setInterval(() => {
+              img2.style.cursor = rightToggle
+                ? "url('Cursor_Cpia_3.png') 10 10, auto"
+                : "url('Cursor_Cpia_4.png') 10 10, auto";
+              rightToggle = !rightToggle;
+            }, 500);
 
-        img1.onclick = () => prevSpread();
-        img2.onclick = () => nextSpread();
-        let leftToggle = false;
-        img1._cursorInterval = setInterval(() => {
-          img1.style.cursor = leftToggle
-            ? "url('Cursor_Cpia_1.png') 10 10, auto"
-            : "url('Cursor_Cpia_2.png') 10 10, auto";
-          leftToggle = !leftToggle;
-        }, 500);
-        let rightToggle = false;
-        img2._cursorInterval = setInterval(() => {
-          img2.style.cursor = rightToggle
-            ? "url('Cursor_Cpia_3.png') 10 10, auto"
-            : "url('Cursor_Cpia_4.png') 10 10, auto";
-          rightToggle = !rightToggle;
-        }, 500);
-
-        updateHash(spreadNum);
-      }
+            updateHash(spreadNum);
+        }
     }
 
     function nextSpread() {
-      if (index === 0) {
-        index = 1;
-      } else if (index + 2 < pages.length) {
-        index += 2;
-      }
-      resetZoom();
-      showSpread();
+        if (index === 0) {
+            index = 1;
+        } else if (index + 2 < pages.length) {
+            index += 2;
+        }
+        resetZoom();
+        showSpread();
     }
 
     function prevSpread() {
-      if (index === 1) {
-        index = 0;
-      } else if (index - 2 >= 1) {
-        index -= 2;
-      }
-      resetZoom();
-      showSpread();
+        if (index === 1) {
+            index = 0;
+        } else if (index - 2 >= 1) {
+            index -= 2;
+        }
+        resetZoom();
+        showSpread();
     }
     
     document.addEventListener("keydown", e => {
